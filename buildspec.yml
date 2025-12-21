@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_NAME: numpy-data-processor
+
+phases:
+  pre_build:
+    commands:
+      - echo "Authenticating to Amazon ECR"
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - AWS_DEFAULT_REGION=eu-north-1
+      - ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME
+      - IMAGE_TAG=latest
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION |
+        docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo "Building Docker image"
+      - docker build -t $IMAGE_NAME .
+      - docker tag $IMAGE_NAME:latest $ECR_URI:$IMAGE_TAG
+      - echo "Running container for validation"
+      - docker run --rm $IMAGE_NAME
+
+  post_build:
+    commands:
+      - echo "Pushing image to ECR"
+      - docker push $ECR_URI:$IMAGE_TAG
