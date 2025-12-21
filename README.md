@@ -6,6 +6,8 @@ This repository demonstrates a cloud-native Continuous Integration (CI) pipeline
 
 Every commit to the repository automatically triggers the pipeline, ensuring the container image is built, tested, and stored as a reusable artifact.
 
+
+
 🧱 Architecture
 GitHub Repository
         │
@@ -42,14 +44,6 @@ Python 3.10
 8. GitHub
 
 
-***📂 Repository Structure***
-
-.
-├── sales_data.csv        # Real dataset used for processing
-├── app.py                # NumPy/Pandas data processing logic
-├── requirements.txt      # Python dependencies
-├── Dockerfile             # Container definition
-└── buildspec.yml          # AWS CodeBuild CI configuration
 
 ***⚙️ Application Logic***
 
