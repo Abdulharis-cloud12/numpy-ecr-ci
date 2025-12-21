@@ -1,4 +1,5 @@
 NumPy CSV Data Processing – AWS CI Pipeline
+
 📌 Overview
 
 This repository demonstrates a cloud-native Continuous Integration (CI) pipeline that builds, validates, and publishes a Docker image for a NumPy/Pandas-based CSV data processing application using AWS CodePipeline, AWS CodeBuild, and Amazon ECR.
@@ -20,25 +21,29 @@ AWS CodeBuild
 Amazon ECR
  (Versioned container image)
 
-🛠 Technologies Used
+
+
+***🛠 Technologies Used***
 
 Python 3.10
 
-NumPy
+2. NumPy
 
-Pandas
+3. Pandas
 
-Docker
+4. Docker
 
-AWS CodeBuild
+5. AWS CodeBuild
 
-AWS CodePipeline
+6. AWS CodePipeline
 
-Amazon Elastic Container Registry (ECR)
+7. Amazon Elastic Container Registry (ECR)
 
-GitHub
+8. GitHub
 
-📂 Repository Structure
+
+***📂 Repository Structure***
+
 .
 ├── sales_data.csv        # Real dataset used for processing
 ├── app.py                # NumPy/Pandas data processing logic
@@ -46,69 +51,73 @@ GitHub
 ├── Dockerfile             # Container definition
 └── buildspec.yml          # AWS CodeBuild CI configuration
 
-⚙️ Application Logic
+***⚙️ Application Logic***
 
 The Python application:
 
 Reads sales_data.csv
 
-Selects numeric columns
+2. Selects numeric columns
 
-Computes summary statistics using NumPy:
+3. Computes summary statistics using NumPy:
 
-Row and column count
+4. Row and column count
 
-Mean, max, and min values
+5. Mean, max, and min values
 
-Prints the results to standard output
+6. Prints the results to standard output
 
 This execution is used as build-time validation inside the CI pipeline.
 
-🐳 Docker Workflow
+
+***🐳 Docker Workflow***
 
 The Docker image packages:
 
 Application code
 
-Dataset
+2. Dataset
 
-All required dependencies
+3. All required dependencies
 
-The container is executed during the build to ensure correctness
+4. The container is executed during the build to ensure correctness
 
-Only validated images are pushed to Amazon ECR
+5. Only validated images are pushed to Amazon ECR
 
-🚀 CI Pipeline Workflow
+
+***🚀 CI Pipeline Workflow***
 
 Source Stage
 
-CodePipeline pulls the latest commit from GitHub
+2. CodePipeline pulls the latest commit from GitHub
 
-Build Stage
+3. Build Stage
 
-CodeBuild authenticates to Amazon ECR using IAM
+4. CodeBuild authenticates to Amazon ECR using IAM
 
-Builds the Docker image
+5. Builds the Docker image
 
-Runs the container to validate data processing
+6. Runs the container to validate data processing
 
-Pushes the image to ECR on success
+7. Pushes the image to ECR on success
 
-Artifact
+8. Artifact
 
-A Docker image stored in Amazon ECR (numpy-data-processor:latest)
+9. A Docker image stored in Amazon ECR (numpy-data-processor:latest)
 
-✅ Success Criteria
+
+***✅ Success Criteria***
 
 A successful pipeline run results in:
 
-Green Source and Build stages in CodePipeline
+*Green Source and Build stages in CodePipeline
 
-Successful execution logs in CodeBuild
+*2. Successful execution logs in CodeBuild
 
-A Docker image available in Amazon ECR
+*A Docker image available in Amazon ECR
 
 🔍 Verifying the Output
+
 1. Check CodeBuild Logs
 
 You should see output similar to:
@@ -120,6 +129,7 @@ mean: ...
 max: ...
 min: ...
 
+
 2. Check Amazon ECR
 
 Repository: numpy-data-processor
@@ -127,6 +137,7 @@ Repository: numpy-data-processor
 Tag: latest
 
 Image pushed during the pipeline run
+
 
 3. Run the Image Locally (Optional)
 docker run --rm <AWS_ACCOUNT_ID>.dkr.ecr.<region>.amazonaws.com/numpy-data-processor:latest
